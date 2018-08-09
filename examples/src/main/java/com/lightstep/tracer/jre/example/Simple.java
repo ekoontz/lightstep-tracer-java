@@ -7,6 +7,7 @@ import io.opentracing.SpanContext;
 import io.opentracing.Tracer;
 import io.opentracing.propagation.Format;
 import io.opentracing.propagation.TextMap;
+import io.opentracing.util.GlobalTracer;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
@@ -34,9 +35,11 @@ public class Simple {
                 .build();
         final Tracer tracer = new JRETracer(options);
 
+        GlobalTracer.register(tracer);
+
         // Create a simple span and delay for a while to ensure the reporting
         // loop works as expected
-        final Span mySpan = tracer.buildSpan("my_span").startManual();
+        final Span mySpan = GlobalTracer.get().buildSpan("my_span").startManual();
 
         // Play with different sorts of payloads for fun.
         mySpan.log("just a message");
