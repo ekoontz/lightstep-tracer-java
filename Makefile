@@ -6,6 +6,9 @@ build: test
 clean:
 	mvn clean
 
+run: build
+	mvn exec:java -pl examples
+
 test: ci_test
 
 # CircleCI test

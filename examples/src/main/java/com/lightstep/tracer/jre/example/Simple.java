@@ -25,8 +25,11 @@ public class Simple {
         System.out.println("Starting Simple example...");
 
         Options options = new Options.OptionsBuilder()
-                .withAccessToken("{your_access_token}")
-                .withComponentName("JRE Simple")
+	        .withAccessToken("your-access-token")
+	        .withCollectorHost("your-hostname")
+                .withCollectorPort(5150)
+                .withCollectorProtocol("http")
+                .withComponentName("Not so simple!!")
                 .withVerbosity(4)
                 .build();
         final Tracer tracer = new JRETracer(options);
