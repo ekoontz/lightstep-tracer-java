@@ -29,7 +29,9 @@ public class JRETracer extends AbstractTracer {
 
     public JRETracer(Options options) {
         super(options.setDefaultReportingIntervalMillis(JRE_DEFAULT_REPORTING_INTERVAL_MILLIS));
+        LOGGER.info("JRETracer()..");
         addStandardTracerTags();
+        LOGGER.info("done with JRETracer().");
     }
 
     // Flush any data stored in the log and span buffers

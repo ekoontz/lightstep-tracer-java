@@ -19,9 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LightstepSpanReceiver implements SpanReceiver {
-    private final Logger logger = LoggerFactory.getLogger(LightstepSpanReceiver.class);
+    private static final Logger logger = LoggerFactory.getLogger(LightstepSpanReceiver.class);
     private final HTraceConfiguration conf;
-    private Object lock = new Object();
+    private static Object lock = new Object();
     private Boolean tracerInitialized = false;
 
 
@@ -127,6 +127,7 @@ public class LightstepSpanReceiver implements SpanReceiver {
      */
     private static void initializeTracer(HTraceConfiguration conf) {
         try {
+            logger.info("initializeTracer(): starting..");
             Options options = new Options.OptionsBuilder()
                     .withAccessToken("your-access-token")
                     .withCollectorHost("your-lightstep-collector-hostname")
@@ -135,8 +136,12 @@ public class LightstepSpanReceiver implements SpanReceiver {
                     .withComponentName("HBase tracer")
                     .withVerbosity(4)
                     .build();
+            logger.info("initializeTracer(): created options object.");
+            logger.info("starting call to JRETracer..");
             final Tracer tracer = new JRETracer(options);
+            logger.info("initializeTracer(): created tracer object.");
             GlobalTracer.register(tracer);
+            logger.info("initializeTracer(): registered tracer object as the global tracer.");
         } catch (MalformedURLException e) {
             System.out.println("failed to configure lightstep: " + e);
         }
