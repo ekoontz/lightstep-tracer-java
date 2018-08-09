@@ -63,5 +63,10 @@
             <artifactId>netty-tcnative-boringssl-static</artifactId>
             <version>${io.netty.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.htrace</groupId>
+            <artifactId>htrace-core</artifactId>
+            <version>3.2.0-incubating</version>
+        </dependency>
     </dependencies>
 </project>
